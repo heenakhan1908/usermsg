@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -17,41 +17,67 @@ No warranties are given. The license may not give you all of the permissions nec
 
 Author: Muhammed Salman Shamsi
 
-Created on: Jun 21, 2017
+Created on: Jun 22, 2017
 */
 ?>
 <html>
     <head>
         <?php require_once 'header.php' ?>
-        <title>User Messenger: Delete Messages</title>
+        <title>User Messenger: Block Users</title>
     </head>
     <body>
         <?php require_once 'navigationbar.php'?>
         <div class="container">
 <?php if($loggedin){ 
-        if($_SESSION[role]==1){    
-                      $result=  queryMysql("Select distinct userid from Messages order by userid");    
+    if($_SESSION[role]==1 || $_SESSION[role]==2){
+            if($_POST){
+                blockUnblockUser();
+            }
+            $result_block=  queryMysql("Select userid from Access where userid!='$user' and blocked=0 order by userid");    
+            $result_unblock=  queryMysql("Select userid from Access where userid!='$user' and blocked=1 order by userid");    
 ?>
-            <h2 class="text-center">View / Delete Messages</h2>
+            <h2 class="text-center">Block / Unblock Users</h2>
             
 <?php
-if(mysqli_num_rows($result)>0){
-    echo '<form role="form" method="post" action="messages.php">
+if(mysqli_num_rows($result_block)>0){
+    echo '<h3>Block User</h3>
+        <form role="form" method="post" action="block.php">
                 <fieldset class="form-group">
                     <label for="user">Select User</label>
                     <select class="form-control" id="user" name="user" required>';
     echo "<option value=''>------</option>";
-    while($row=mysqli_fetch_array($result)){
+    while($row=mysqli_fetch_array($result_block)){
             echo "<option value='".$row['userid']."'>".$row['userid']."</option>";    
     }
  
             echo    ' </select>
+                    <input type="hidden" name="block" value="1"/>
                     <br>
-                    <button type="submit" id="msgSubmit" class="btn btn-primary col-lg-3 col-md-4 col-sm-10">Post</button>    
+                    <button type="submit" id="bSubmit" class="btn btn-primary col-lg-3 col-md-4 col-sm-10">Block</button>    
             </form>'; 
 }
 else{
-    echo '<div class="message alert alert-info col-lg-12 col-md-12 col-sm-12">Hmm.. Look likes No User has posted any Message.</div>';
+    echo '<br><br><div class="message alert alert-info col-lg-12 col-md-12 col-sm-12">Currently all users are blocked, Except You!</div>';
+}
+if(mysqli_num_rows($result_unblock)>0){
+    echo '<br><br><h3>Unblock User</h3>
+        <form role="form" method="post" action="block.php">
+                <fieldset class="form-group">
+                    <label for="user">Select User</label>
+                    <select class="form-control" id="user" name="user" required>';
+    echo "<option value=''>------</option>";
+    while($row=mysqli_fetch_array($result_unblock)){
+            echo "<option value='".$row['userid']."'>".$row['userid']."</option>";    
+    }
+ 
+            echo    ' </select>
+                    <input type="hidden" name="block" value="0"/>
+                    <br>
+                    <button type="submit" id="ubSubmit" class="btn btn-primary col-lg-3 col-md-4 col-sm-10">Unblock</button>    
+            </form>'; 
+}
+else{
+    echo '<br><br><div class="message alert alert-info col-lg-12 col-md-12 col-sm-12">Currently there are no users blocked!</div>';
 }
 }
 else{
@@ -65,3 +91,4 @@ else{
 }            
     echo '<br><br>';
 require_once 'footer.php';
+?>

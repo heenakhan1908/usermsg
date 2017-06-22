@@ -17,48 +17,47 @@ No warranties are given. The license may not give you all of the permissions nec
 
 Author: Muhammed Salman Shamsi
 
-Created on: Jun 21, 2017
+Created on: Jun 22, 2017
 */
 ?>
 <html>
     <head>
         <?php require_once 'header.php' ?>
-        <title>User Messenger: Messages</title>
+        <title>User Messenger: Update Others' Profile</title>
     </head>
     <body>
         <?php require_once 'navigationbar.php'?>
         <div class="container">
 <?php if($loggedin){ 
-            if($_POST){
-                insertMsg();
-                if(!empty($_POST['user']))
-                    $user= sanitizeString ($_POST['user']);
-//                else {
-//                    $user=$_SESSION['userid'];
-//                    echo "hello";
-//                }
-            }
-            $result=  queryMysql("Select * from Messages where userid='$user' order by time_stamp");    
+        if($_SESSION[role]==1 || $_SESSION[role]==2){    
+                      $result=  queryMysql("Select userid from UserProfile order by userid");    
 ?>
-            <h2 class="text-center">Message Board</h2>
-            <form method="post" action="messages.php">
-                <textarea class="message-post" rows="5" name="post_message" placeholder="What is in your mind? Share with us..."></textarea>
-                <button type="submit" id="msgSubmit" class="btn btn-primary col-lg-3 col-md-4 col-sm-10">Post</button>    
-            </form>
-          
+            <h2 class="text-center">Update Others' Profile</h2>
+            
 <?php
 if(mysqli_num_rows($result)>0){
+    echo '<form role="form" method="post" action="updateprofile.php">
+                <fieldset class="form-group">
+                    <label for="user">Select User</label>
+                    <select class="form-control" id="user" name="user" required>';
+    echo "<option value=''>------</option>";
     while($row=mysqli_fetch_array($result)){
-           echo '<div class="message col-lg-6 col-md-8 col-sm-10">'.$row[msg].
-                        '<div class="text-right">'.date('d-m-Y H:i:s a', strtotime($row[time_stamp])).'</div>';
-           if($_SESSION[role]==1)
-                   echo '<button class="btn btn-delete" id="'.$row[idMsg].'">Delete</button>';
-           echo '</div>';
+            echo "<option value='".$row['userid']."'>".$row['userid']."</option>";    
     }
+ 
+            echo    ' </select>
+                    <br>
+                    <button type="submit" class="btn btn-primary col-lg-3 col-md-4 col-sm-10">Go</button>    
+            </form>'; 
 }
 else{
-    echo '<div class="message alert alert-info col-lg-12 col-md-12 col-sm-12">No Message to display!</div>';
-}                
+    echo '<div class="message alert alert-info col-lg-12 col-md-12 col-sm-12">No Users\' Profiles Found.</div>';
+}
+}
+else{
+       echo '<div class="alert alert-danger">Access Denied! You are not authorized to view this section.</div>';
+       header("Refresh: 2; url=index.php");
+}
 }
 else{ 
     echo '<div class="alert alert-danger">Please LogIn to use System</div>';

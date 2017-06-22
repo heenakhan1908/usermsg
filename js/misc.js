@@ -15,9 +15,9 @@
  
  Author: Muhammed Salman Shamsi
  
- Created On: 
+ Created On: Jun 21, 2017
  */
-$(document).ready(function () {
+$(function () {
 
  $("#cpass").change(function (e) {
         e.preventDefault();
@@ -77,26 +77,19 @@ $(document).ready(function () {
 
         });
         
-    $("#bzone").change(function (e) {
+    $(".btn-delete").on('click',function (e) {
         e.preventDefault();
-        var zone = $(this).val();
-        $('#bbuilding').prop('selectedIndex',0);
-        $('#wing').prop('selectedIndex',0);
-        $('#seflat').prop('selectedIndex',0);
-        
-        $('#sebuilding').val("");
-        $('#sewing').val("");
-        $('#seflatedit').val("");
-        
-        var dataString = 'zone=' + zone;
+        var id = $(this).attr("id");
+        var btn=this;
+        var dataString = 'msgid=' + id;
         $.ajax({
             type: 'POST',
-            url: 'loadZoneBuilding.php',
+            url: 'deletemsg.php',
             data: dataString,
             cache: false,
             success: function (html)
             {
-                $("#bbuilding").html(html);
+                $(btn).parent().html(html);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);

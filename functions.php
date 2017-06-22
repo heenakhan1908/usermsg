@@ -105,7 +105,7 @@ function loadUserId()
 function loadRoles()
 {
     
-    $sql_query = "select * from `Roles` order by roll_name";
+    $sql_query = "select * from `Roles` order by role_name";
 
     $result= queryMysql($sql_query);
 
@@ -156,8 +156,7 @@ function insertUser(){
                 $query="Insert into Access values('$user','$token','$creation','$userrole','$createdby',0)";
                 $result=  queryMysql($query);
                 if($result){
-                    echo '<div class="alert alert-success">'.$user.' is Successfully Created</div>';
-                    die();
+                    echo '<div class="alert alert-success">User '.$user.' is Successfully Created</div>';
                 }
             }
                      
@@ -166,23 +165,39 @@ function insertUser(){
 }
 
 
+function blockUnblockUser(){
+//    echo $_POST[user].'-'.$_POST[block];
+    if(!empty($_POST[user]) && isset($_POST[block])){
+            $user= sanitizeString($_POST[user]);
+            $block= sanitizeString($_POST[block]);
+            $query="update Access set blocked=$block where userid='$user'";
+//            echo $query;
+            $result=  queryMysql($query);
+                if($result){
+                    echo "<div class='alert alert-success'><strong>Success! </strong>User $user is ";
+                    echo $block?"blocked":"unblocked";
+                    echo "!</div>";
+                }            
+    }
+}
+
 function updateProfile(){
 
     if($_POST){
             $user=$_SESSION['user'];
             $instime=date('Y-m-d H:i:s');
-            $query="update Survey set building='$building', wing='$wing', flatno='$flat', male='$male', "
-                    . "female='$female', children='$kids', working='$working'"
-                    . ", nonworking='$nonworking', occupation='$occupation', twowheel='$twowheel', threewheel='$threewheel',"
-                    . " fourwheel='$fourwheel', religion='$caste', area='$area', userid='$user', timestamp='$instime' "
-                    . " where zoneid='$zone' and  building='$bbuilding' and  wing='$bwing' and  flatno='$bflat'";
-          
-            $result=  queryMysql($query);
-                if($result){
-                    echo '<div class="alert alert-success"><strong>Success!</strong> Your data has been updated!.</div>';
-                    //header("Refresh: 0; url=index.php");
-                }
-            
+//            $query="update Survey set building='$building', wing='$wing', flatno='$flat', male='$male', "
+//                    . "female='$female', children='$kids', working='$working'"
+//                    . ", nonworking='$nonworking', occupation='$occupation', twowheel='$twowheel', threewheel='$threewheel',"
+//                    . " fourwheel='$fourwheel', religion='$caste', area='$area', userid='$user', timestamp='$instime' "
+//                    . " where zoneid='$zone' and  building='$bbuilding' and  wing='$bwing' and  flatno='$bflat'";
+//          
+//            $result=  queryMysql($query);
+//                if($result){
+//                    echo '<div class="alert alert-success"><strong>Success!</strong> Your data has been updated!.</div>';
+//                    //header("Refresh: 0; url=index.php");
+//                }
+//            
         
     }
 }
@@ -203,8 +218,8 @@ if($_POST){
         }
         else
         {
-            $s1="su*!#er";
-            $s2="ts&a@s#";
+            $s1="ht*!#wr";
+            $s2="st&f@q#";
             $token= hash('ripemd128', "$s1$pass$s2");
             $query="update Access set pass='".$token."' where userid='".$user."'";
             $result=  queryMysql($query);

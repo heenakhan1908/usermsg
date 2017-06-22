@@ -14,21 +14,32 @@ No additional restrictions — You may not apply legal terms or technological me
 Notices:
 You do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.
 No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.
+
 Author: Muhammed Salman Shamsi
-Created On: 21 June, 2017
- */
+
+Created on: Jun 21, 2017
+*/
+require_once 'functions.php';
+    
+if($_POST)
+{
+    if(!empty($_POST['msgid']))
+    {
+        $msgid=sanitizeString($_POST['msgid']);
+        
+        $query="delete from Messages where idMsg='$msgid'";
+        
+        $result= queryMysql($query);
+        
+        if($result)
+        {
+            echo '<span class="alert-info">Message Successfully Deleted!</span>';
+        }
+        else
+        {
+            echo '<span class="alert-error">Sorry :( Unable to delete Message!</span>';
+        }
+        
+    }
+}
 ?>
-</div>
-  <footer class="footer">
-    <div class="container text-center">
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
-        <img alt="Creative Commons License" style="border-width:0;" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
-        <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Muhammed Salman Shamsi</span>
-        <script src="js/bootstrap.min.js"></script>
-        <script src='js/jquery-1.11.2.js'></script>
-        <script src='js/jquery-ui.min.js'></script>
-        <script src='js/misc.js'></script>
-    </div>
-  </footer>
- </body>
-</html>

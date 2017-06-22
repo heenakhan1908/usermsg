@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -17,48 +17,35 @@ No warranties are given. The license may not give you all of the permissions nec
 
 Author: Muhammed Salman Shamsi
 
-Created on: Jun 21, 2017
+Created on: Jun 22, 2017
 */
 ?>
 <html>
     <head>
         <?php require_once 'header.php' ?>
-        <title>User Messenger: Messages</title>
+        <title>User Messenger: Users</title>
     </head>
     <body>
         <?php require_once 'navigationbar.php'?>
         <div class="container">
 <?php if($loggedin){ 
-            if($_POST){
-                insertMsg();
-                if(!empty($_POST['user']))
-                    $user= sanitizeString ($_POST['user']);
-//                else {
-//                    $user=$_SESSION['userid'];
-//                    echo "hello";
-//                }
-            }
-            $result=  queryMysql("Select * from Messages where userid='$user' order by time_stamp");    
+            $result=  queryMysql("Select a.userid,fname,lname from Access a left outer join UserProfile u on a.userid=u.userid order by userid");
 ?>
-            <h2 class="text-center">Message Board</h2>
-            <form method="post" action="messages.php">
-                <textarea class="message-post" rows="5" name="post_message" placeholder="What is in your mind? Share with us..."></textarea>
-                <button type="submit" id="msgSubmit" class="btn btn-primary col-lg-3 col-md-4 col-sm-10">Post</button>    
-            </form>
-          
+            <h2 class="text-center">Current Users</h2>
+            
 <?php
 if(mysqli_num_rows($result)>0){
     while($row=mysqli_fetch_array($result)){
-           echo '<div class="message col-lg-6 col-md-8 col-sm-10">'.$row[msg].
-                        '<div class="text-right">'.date('d-m-Y H:i:s a', strtotime($row[time_stamp])).'</div>';
-           if($_SESSION[role]==1)
-                   echo '<button class="btn btn-delete" id="'.$row[idMsg].'">Delete</button>';
-           echo '</div>';
+            echo "<div class='message'>".$row['userid']."(";
+            echo $row['fname']?$row['fname']:"First Name not provided";
+            echo $row['lname']?$row['lname']:" Last Name not provided";
+            echo ")</div>";    
     }
-}
+ }
 else{
-    echo '<div class="message alert alert-info col-lg-12 col-md-12 col-sm-12">No Message to display!</div>';
-}                
+    echo '<br><br><div class="message alert alert-info col-lg-12 col-md-12 col-sm-12">Currently there are no users of system!</div>';
+}
+
 }
 else{ 
     echo '<div class="alert alert-danger">Please LogIn to use System</div>';
@@ -66,3 +53,4 @@ else{
 }            
     echo '<br><br>';
 require_once 'footer.php';
+?>

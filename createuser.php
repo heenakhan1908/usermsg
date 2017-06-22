@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<!--
+<?php
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -18,7 +17,8 @@ No warranties are given. The license may not give you all of the permissions nec
 Author: Muhammed Salman Shamsi
 
 Created On: 21 June, 2017.
- */-->
+ */
+?>
 
 <html>
     <head>
@@ -26,7 +26,10 @@ Created On: 21 June, 2017.
         <title>Urban Messenger: Account Creation</title>
     </head>
 <body>
-<?php 
+<?php
+if($loggedin){
+    require_once 'navigationbar.php';
+    if($_SESSION['role']==1){
         if($_POST) 
             insertUser();
             
@@ -59,5 +62,16 @@ Created On: 21 June, 2017.
         </fieldset> 
         <input type="submit" class="btn btn-primary" value="Create Account">
     </form><br><br>
-<?php require_once 'footer.php';?>
+<?php 
+    }
+    else{
+        echo '<div class="container"><div class="alert alert-danger">Access Denied! You are not authorized to view this section</div></div>';
+        header('refresh: 2; url=index.php');
+    }
+}
+else {
+      echo '<div class="container"><div class="alert alert-danger">Please Login to Use System</div></div>';
+      header('refresh: 2; url=login.php');
+}
+require_once 'footer.php';?>
 

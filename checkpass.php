@@ -14,21 +14,36 @@ No additional restrictions — You may not apply legal terms or technological me
 Notices:
 You do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.
 No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.
+
 Author: Muhammed Salman Shamsi
-Created On: 21 June, 2017
+
+Created On: 14 June, 2016 03:35 PM
  */
+require_once 'functions.php';
+    
+if($_POST)
+{
+    if(isset($_POST['user'])&& isset($_POST['pass']))
+    {
+        $pass=sanitizeString($_POST['pass']);
+        $user=strtolower(sanitizeString($_POST['user']));
+        $s1="su*!#er";
+        $s2="ts&a@s#";
+        $token= hash('ripemd128',"$s1$pass$s2");
+       
+        $query="select * from Access where userid='".$user."' and pass='".$token."'";
+        
+        $result= queryMysql($query);
+        
+        if(mysqli_num_rows($result)==0)
+        {
+            echo 'false';
+        }
+        else
+        {
+            echo 'true';
+        }
+        
+    }
+}
 ?>
-</div>
-  <footer class="footer">
-    <div class="container text-center">
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
-        <img alt="Creative Commons License" style="border-width:0;" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
-        <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Muhammed Salman Shamsi</span>
-        <script src="js/bootstrap.min.js"></script>
-        <script src='js/jquery-1.11.2.js'></script>
-        <script src='js/jquery-ui.min.js'></script>
-        <script src='js/misc.js'></script>
-    </div>
-  </footer>
- </body>
-</html>

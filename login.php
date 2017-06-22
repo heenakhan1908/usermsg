@@ -48,10 +48,10 @@ if($_POST)
       $s1="ht*!#wr";
       $s2="st&f@q#";
       $token= hash('ripemd128', "$s1$pass$s2"); 
-      $result = mysqli_query($link,"SELECT userid,role_id FROM Access  WHERE userid='$user' AND pass='$token'");
+      $result = mysqli_query($link,"SELECT userid,role_id FROM Access  WHERE userid='$user' AND pass='$token' AND blocked=0");
       $row = mysqli_fetch_array($result);
       if (!$row){
-        echo " <div class='row text-center' ><div class='alert alert-danger'>Check your username or password and try submitting again.</div></div>";
+        echo " <div class='row text-center' ><div class='alert alert-danger'>Check your username or password and try submitting again. Contact admin if you are still not able to log in.</div></div>";
       }
       else{
         $_SESSION['user'] = $row['userid'];
