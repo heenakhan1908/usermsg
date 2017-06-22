@@ -1,5 +1,4 @@
 <?php
-session_start();
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -34,8 +33,8 @@ if($loggedin){
         {
             updateProfile();
             changePass();
-            if(!empty($_POST[user])){
-                $user= sanitizeString ($_POST[user]);
+            if(!empty($_POST['user'])){
+                $user= sanitizeString ($_POST['user']);
             }
             else {
                 $user=$_SESSION['user'];
@@ -52,16 +51,16 @@ if($loggedin){
         <h1> Update Profile</h1>
         <fieldset class="form-group">
             <label for="fname">First Name</label>
-            <input class="form-control" type="text" placeholder="Your First Name" maxlength="25" id="fname" name="fname" value="<?php echo $row[fname]?>" required><br>
+            <input class="form-control" type="text" placeholder="Your First Name" maxlength="25" id="fname" name="fname" value="<?php echo $row['fname']?>" required><br>
             <span id="fnameerr"></span>
         </fieldset>
         <fieldset class="form-group">
             <label for="lname">Last Name</label>
-            <input class="form-control" type="text" placeholder="Your Last Name" maxlength="25" id="lname" name="lname" value="<?php echo $row[lname]?>" required><br>
+            <input class="form-control" type="text" placeholder="Your Last Name" maxlength="25" id="lname" name="lname" value="<?php echo $row['lname']?>" required><br>
             <span id="lnameerr"></span>
         </fieldset>
         <fieldset class="form-group">
-            <label for="gender">Gender: </label><?php echo " ".$row[gender]; ?>
+            <label for="gender">Gender: </label><?php echo " ".$row['gender']; ?>
             <div class="form-control">
                 <input type="radio" name="gender" id="male" value="MALE"  required> Male&nbsp;
                 <input type="radio" name="gender" id="female" value="FEMALE" required> Female
@@ -69,32 +68,32 @@ if($loggedin){
         </fieldset>
         <fieldset class="form-group">
             <label for="mobile">Mobile Number</label>
-            <input class="form-control" type="number" placeholder="10 digits mobile number" maxlength="10" id="mobile" name="mobile" value="<?php echo $row[phoneno]?>" required>
+            <input class="form-control" type="number" placeholder="10 digits mobile number" maxlength="10" id="mobile" name="mobile" value="<?php echo $row['phoneno']?>" required>
         </fieldset>    
         <fieldset class="form-group">
             <label for="email">Email</label>
-            <input class="form-control" type="email" placeholder="username@example.com"  id="email" name="email" value="<?php echo $row[email]?>" required>
+            <input class="form-control" type="email" placeholder="username@example.com"  id="email" name="email" value="<?php echo $row['email']?>" required>
         </fieldset>    
         <fieldset class="form-group">
             <label for="dob">Date of Birth</label>
-            <input class="form-control" type="date" placeholder="dd/mm/yyyy" id="dob" name="dob" value="<?php echo $row[dob]?date('d/m/Y', strtotime($row[dob])):FALSE; ?>" required/>
+            <input class="form-control" type="date" placeholder="dd/mm/yyyy" id="dob" name="dob" value="<?php echo $row['dob']?date('d/m/Y', strtotime($row['dob'])):FALSE; ?>" required/>
         </fieldset> 
         <fieldset class="form-group">
             <label for="headline">Profile Headline</label>
-            <input class="form-control" type="text" placeholder="A Passionate Web Designer with 3 years of experience" maxlength="90" id="headline" name="headline" value="<?php echo $row[headline]?>" required><br>
+            <input class="form-control" type="text" placeholder="A Passionate Web Designer with 3 years of experience" maxlength="90" id="headline" name="headline" value="<?php echo $row['headline']?>" required><br>
         </fieldset>
         <fieldset class="form-group">
             <label for="cpos">Current Position</label>
-            <input class="form-control" type="text" placeholder="Your Current Designation" maxlength="35" id="cpos" name="cpos" value="<?php echo $row[current_pos]?>" required><br>
+            <input class="form-control" type="text" placeholder="Your Current Designation" maxlength="35" id="cpos" name="cpos" value="<?php echo $row['current_pos']?>" required><br>
         </fieldset>
         <fieldset class="form-group">
             <label for="desc">Profile Description</label>
-            <textarea class="form-control" placeholder="Your Profile Description" id="desc" name="desc" maxlength="250" required><?php echo $row[description]?></textarea>
+            <textarea class="form-control" placeholder="Your Profile Description" id="desc" name="desc" maxlength="250" required><?php echo $row['description']?></textarea>
         </fieldset>
         <fieldset class="form-group">
             <label for="edu">Education</label>
             <select name="edu" id="edu" name="edu" class="form-control" required>
-                <option value="<?php echo $row[highest_edu]?>"><?php echo $row[highest_edu]?></option>
+                <option value="<?php echo $row['highest_edu']; ?>"><?php echo $row['highest_edu']; ?></option>
                 <option value="SSC/Metric">SSC/Metric</option>
                 <option value="HSC/Post Metric">HSC/Post Metric</option>
                 <option value="B.Sc">B.Sc</option>
@@ -108,26 +107,26 @@ if($loggedin){
                 <option value="M.E/M.Tech">M.E/M.Tech</option>
                 <option value="P.hd">P.hd</option>
             </select><br>
-            <input class="form-control" type="text" placeholder="University Name" maxlength="60" id="univ" name="univ" value="<?php echo $row[highest_univ]?>" required><br>
+            <input class="form-control" type="text" placeholder="University Name" maxlength="60" id="univ" name="univ" value="<?php echo $row['highest_univ']?>" required><br>
         </fieldset>
         <fieldset class="form-group">
             <label for="city">City</label>
-            <input class="form-control" type="text" placeholder="Your Current Location" maxlength="30" id="city" name="city" value="<?php echo $row[city]?>" required><br>
+            <input class="form-control" type="text" placeholder="Your Current Location" maxlength="30" id="city" name="city" value="<?php echo $row['city']?>" required><br>
         </fieldset>
         <fieldset class="form-group">
             <label for="state">State</label>
-            <input class="form-control" type="text" placeholder="Your Current State" maxlength="25" id="state" name="state" value="<?php echo $row[state]?>" required><br>
+            <input class="form-control" type="text" placeholder="Your Current State" maxlength="25" id="state" name="state" value="<?php echo $row['state']?>" required><br>
         </fieldset>
         <fieldset class="form-group">
             <label for="country">Country</label>
-            <input class="form-control" type="text" placeholder="Your Current Country" maxlength="20" id="country" name="country" value="<?php echo $row[country]?>" required><br>
+            <input class="form-control" type="text" placeholder="Your Current Country" maxlength="20" id="country" name="country" value="<?php echo $row['country']?>" required><br>
         </fieldset>
         <fieldset class="form-group">
             <label for="image">Update Your Photo</label>(Max size: 1MB)        
             <input class="form-input" type="file" name="image" id="image"/>
         </fieldset>
         <h3>Change Password</h3>
-        <?php if($_SESSION[role]==3){
+        <?php if($_SESSION['role']==3){
             
         echo '  <fieldset class="form-group">
             <label for="pass">Enter Old Password</label>
@@ -137,16 +136,16 @@ if($loggedin){
         ?>
         <fieldset class="form-group">
             <label for="pass">Enter Password</label>
-            <input class="form-control" type="password" placeholder="Min 8 char, 1 Lowercase,1 Uppercase, 1 Special Charcter" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" id="pass" name="pass"  <?php if($_SESSION[role]==3){ echo ' disabled=true'; }?> >
+            <input class="form-control" type="password" placeholder="Min 8 char, 1 Lowercase,1 Uppercase, 1 Special Charcter" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" id="pass" name="pass"  <?php if($_SESSION['role']==3){ echo ' disabled=true'; }?> >
         </fieldset>
         <fieldset class="form-group">
             <label for="cpass">Confirm Password</label>
-            <input class="form-control" type="password" id="cpass" placeholder="Repeat Password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" name="cpass"  <?php if($_SESSION[role]==3){ echo ' disabled=true'; }?> ><br><span id="cpasserr"></span>
+            <input class="form-control" type="password" id="cpass" placeholder="Repeat Password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" name="cpass"  <?php if($_SESSION['role']==3){ echo ' disabled=true'; }?> ><br><span id="cpasserr"></span>
         </fieldset>
         <input type="submit" class="btn btn-primary" value="Update Profile">
 <?php
     echo "<input type='hidden' name='user' id='user' value='$user'/>";
-    echo "<input type='hidden' name='updated_by' id='updated_by' value='$_SESSION[user]'/>";
+    echo "<input type='hidden' name='updated_by' id='updated_by' value='".$_SESSION['user']."'/>";
     echo '</form><br><br>';
 
     }

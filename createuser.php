@@ -1,5 +1,4 @@
 <?php
-session_start();
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -30,14 +29,14 @@ Created On: 21 June, 2017.
 <?php
 if($loggedin){
     require_once 'navigationbar.php';
+    echo '<div class="container">
+    <br>';
     if($_SESSION['role']==1){
         if($_POST) 
             insertUser();
             
     
 ?>
-<div class="container">
-    <br>
     <img class="profile-img" src="img/mumbra.jpg" alt="User Messenger"/>
     
     <form role="form" method="post" action="createuser.php">

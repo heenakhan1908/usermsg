@@ -1,5 +1,4 @@
 <?php
-session_start();
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -53,10 +52,10 @@ else{
 }
 if(mysqli_num_rows($result)>0){
     while($row=mysqli_fetch_array($result)){
-           echo '<div class="message col-lg-6 col-md-8 col-sm-10">'.$row[msg].
-                        '<div class="text-right">'.date('d-m-Y H:i:s a', strtotime($row[time_stamp])).'</div>';
-           if($_SESSION[role]==1)
-                   echo '<button class="btn btn-delete" id="'.$row[idMsg].'">Delete</button>';
+           echo '<div class="message col-lg-6 col-md-8 col-sm-10">'.$row['msg'].
+                        '<div class="text-right">'.date('d-m-Y H:i:s', strtotime($row['time_stamp'])).'</div>';
+           if($_SESSION['role']==1)
+                   echo '<button class="btn btn-delete" id="'.$row['idMsg'].'">Delete</button>';
            echo '</div>';
     }
 }

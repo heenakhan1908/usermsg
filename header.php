@@ -1,5 +1,4 @@
 <?php
-
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -20,6 +19,7 @@ Author: Muhammed Salman Shamsi
 Created on: 21-06-2017
 */
 session_start();
+date_default_timezone_set('Asia/Kolkata');
  require_once 'functions.php';
 echo <<<_END
     <meta charset="utf-8">

@@ -1,5 +1,4 @@
 <?php
-session_start();
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -41,7 +40,7 @@ function connectdB(){
 
     $db_user="root";
 
-    $db_password="2549root";
+    $db_password="root";
 
     $db_name="myAssignDb";
 
@@ -157,9 +156,9 @@ function insertUser(){
 
 function blockUnblockUser(){
 //    echo $_POST[user].'-'.$_POST[block];
-    if(!empty($_POST[user]) && isset($_POST[block])){
-            $user= sanitizeString($_POST[user]);
-            $block= sanitizeString($_POST[block]);
+    if(!empty($_POST['user']) && isset($_POST['block'])){
+            $user= sanitizeString($_POST['user']);
+            $block= sanitizeString($_POST['block']);
             $query="update Access set blocked=$block where userid='$user'";
 //            echo $query;
             $result=  queryMysql($query);
@@ -174,24 +173,24 @@ function blockUnblockUser(){
 function updateProfile(){
 
     if($_POST){
-        if(!empty($_POST[user])&& isset($_POST[fname])&& isset($_POST[lname])&& isset($_POST[email])&& isset($_POST[mobile])&& isset($_POST[gender])&& isset($_POST[dob])&& isset($_POST[desc])&& isset($_POST[headline])&& isset($_POST[cpos])&& isset($_POST[edu])&& isset($_POST[univ])&& isset($_POST[city])&& isset($_POST[state])&& isset($_POST[country])&& isset($_POST[updated_by])){
-            $user= sanitizeString($_POST[user]);
-            $fname=sanitizeString($_POST[fname]);
-            $lname=sanitizeString($_POST[lname]);
-            $email=sanitizeString($_POST[email]);
-            $mobile=sanitizeString($_POST[mobile]);
-            $gender=sanitizeString($_POST[gender]);
-            $dob=$_POST[dob]?date('Y-m-d', strtotime(str_replace('/','-',$_POST[dob]))):NULL;
+        if(!empty($_POST['user'])&& isset($_POST['fname'])&& isset($_POST['lname'])&& isset($_POST['email'])&& isset($_POST['mobile'])&& isset($_POST['gender'])&& isset($_POST['dob'])&& isset($_POST['desc'])&& isset($_POST['headline'])&& isset($_POST['cpos'])&& isset($_POST['edu'])&& isset($_POST['univ'])&& isset($_POST['city'])&& isset($_POST['state'])&& isset($_POST['country'])&& isset($_POST['updated_by'])){
+            $user= sanitizeString($_POST['user']);
+            $fname=sanitizeString($_POST['fname']);
+            $lname=sanitizeString($_POST['lname']);
+            $email=sanitizeString($_POST['email']);
+            $mobile=sanitizeString($_POST['mobile']);
+            $gender=sanitizeString($_POST['gender']);
+            $dob=$_POST['dob']?date('Y-m-d', strtotime(str_replace('/','-',$_POST['dob']))):NULL;
 //            echo $dob;
-            $desc=sanitizeString($_POST[desc]);
-            $headline=sanitizeString($_POST[headline]);
-            $cpos=sanitizeString($_POST[cpos]);
-            $edu=sanitizeString($_POST[edu]);
-            $univ=sanitizeString($_POST[univ]);
-            $city=sanitizeString($_POST[city]);
-            $state=sanitizeString($_POST[state]);
-            $country=sanitizeString($_POST[country]);
-            $update_by=sanitizeString($_POST[updated_by]);
+            $desc=sanitizeString($_POST['desc']);
+            $headline=sanitizeString($_POST['headline']);
+            $cpos=sanitizeString($_POST['cpos']);
+            $edu=sanitizeString($_POST['edu']);
+            $univ=sanitizeString($_POST['univ']);
+            $city=sanitizeString($_POST['city']);
+            $state=sanitizeString($_POST['state']);
+            $country=sanitizeString($_POST['country']);
+            $update_by=sanitizeString($_POST['updated_by']);
             $updatetime=date('Y-m-d H:i:s');
             if(getimagesize($_FILES['image']['tmp_name'])==FALSE)
             {
@@ -234,7 +233,7 @@ function displayImage($id)
     $result= queryMysql($query);
   
     while($row = mysqli_fetch_array($result)){
-        if($row[image]!=null)
+        if($row['image']!=null)
             echo '<img class="profile-img" src="data:image/png/jpeg/bmp/gif;base64,'. $row['image'] .'"/> ';
         else 
             echo '<img class="profile-img" src="img/mumbra.jpg" alt="User Messenger"/>';

@@ -1,5 +1,4 @@
 <?php
-
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:

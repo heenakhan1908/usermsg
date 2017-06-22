@@ -1,5 +1,4 @@
 <?php
-session_start();
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -29,7 +28,7 @@ Created on: Jun 22, 2017
         <?php require_once 'navigationbar.php'?>
         <div class="container">
 <?php if($loggedin){ 
-    if($_SESSION[role]==1 || $_SESSION[role]==2){
+    if($_SESSION['role']==1 || $_SESSION['role']==2){
             if($_POST){
                 blockUnblockUser();
             }
