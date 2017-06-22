@@ -27,8 +27,8 @@ if($_POST)
     {
         $pass=sanitizeString($_POST['pass']);
         $user=strtolower(sanitizeString($_POST['user']));
-        $s1="su*!#er";
-        $s2="ts&a@s#";
+        $s1="ht*!#wr";
+        $s2="st&f@q#";
         $token= hash('ripemd128',"$s1$pass$s2");
        
         $query="select * from Access where userid='".$user."' and pass='".$token."'";

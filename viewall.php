@@ -36,8 +36,9 @@ Created on: Jun 22, 2017
 <?php
 if(mysqli_num_rows($result)>0){
     while($row=mysqli_fetch_array($result)){
-            echo "<div class='message'>".$row['userid']."(";
+            echo "<div class='message'>".$row['userid']." (";
             echo $row['fname']?$row['fname']:"First Name not provided";
+            echo " ";
             echo $row['lname']?$row['lname']:" Last Name not provided";
             echo ")</div>";    
     }

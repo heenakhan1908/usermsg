@@ -35,7 +35,6 @@ Created On: Jun 21, 2017
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="index.php">Home</a></li>
-        <li><a href="#">About</a></li>
 <?php        
 if($loggedin){
         echo '<li><a href="logout.php">Logout</a></li>';

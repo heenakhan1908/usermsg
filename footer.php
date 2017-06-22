@@ -24,8 +24,8 @@ Created On: 21 June, 2017
         <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
         <img alt="Creative Commons License" style="border-width:0;" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
         <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Muhammed Salman Shamsi</span>
-        <script src="js/bootstrap.min.js"></script>
         <script src='js/jquery-1.11.2.js'></script>
+        <script src="js/bootstrap.min.js"></script>
         <script src='js/jquery-ui.min.js'></script>
         <script src='js/misc.js'></script>
     </div>

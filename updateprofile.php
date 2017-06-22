@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -29,25 +29,26 @@ Created on: Jun 22, 2017
 <?php
 if($loggedin){
     require_once 'navigationbar.php';
+    echo '<div class="container"><br>';  
         if($_POST) 
         {
             updateProfile();
-            if(!empty($_POST[user]))
+            changePass();
+            if(!empty($_POST[user])){
                 $user= sanitizeString ($_POST[user]);
-           
+            }
             else {
                 $user=$_SESSION['user'];
             }
         }
     $result=  queryMysql("Select * from UserProfile where userid='$user'");    
-    echo '<div class="container">
-    <br>';
+    
     if(mysqli_num_rows($result)>0){
     while($row=mysqli_fetch_array($result)){
 ?>
     
-    <form role="form" method="post" action="updateprofile.php">
-        <img class="profile-img" src="img/mumbra.jpg" alt="User Messenger"/>
+    <form role="form" method="post" action="updateprofile.php" enctype="multipart/form-data">
+        <?php displayImage($user); ?>
         <h1> Update Profile</h1>
         <fieldset class="form-group">
             <label for="fname">First Name</label>
@@ -60,7 +61,7 @@ if($loggedin){
             <span id="lnameerr"></span>
         </fieldset>
         <fieldset class="form-group">
-            <label for="gender">Gender</label>
+            <label for="gender">Gender: </label><?php echo " ".$row[gender]; ?>
             <div class="form-control">
                 <input type="radio" name="gender" id="male" value="MALE"  required> Male&nbsp;
                 <input type="radio" name="gender" id="female" value="FEMALE" required> Female
@@ -92,7 +93,7 @@ if($loggedin){
         </fieldset>
         <fieldset class="form-group">
             <label for="edu">Education</label>
-            <select name="edu" id="edu" class="form-control" required>
+            <select name="edu" id="edu" name="edu" class="form-control" required>
                 <option value="<?php echo $row[highest_edu]?>"><?php echo $row[highest_edu]?></option>
                 <option value="SSC/Metric">SSC/Metric</option>
                 <option value="HSC/Post Metric">HSC/Post Metric</option>
@@ -122,12 +123,32 @@ if($loggedin){
             <input class="form-control" type="text" placeholder="Your Current Country" maxlength="20" id="country" name="country" value="<?php echo $row[country]?>" required><br>
         </fieldset>
         <fieldset class="form-group">
-            <label for="image">Update Your Photo</label>        
-            <input class="form-input" type="file" name="image" required="true"/>
+            <label for="image">Update Your Photo</label>(Max size: 1MB)        
+            <input class="form-input" type="file" name="image" id="image"/>
+        </fieldset>
+        <h3>Change Password</h3>
+        <?php if($_SESSION[role]==3){
+            
+        echo '  <fieldset class="form-group">
+            <label for="pass">Enter Old Password</label>
+            <input class="form-control" type="password" placeholder="Your Old Password" id="oldpass" name="oldpass" ><br><span id="passerr"></span>
+        </fieldset>';
+        }
+        ?>
+        <fieldset class="form-group">
+            <label for="pass">Enter Password</label>
+            <input class="form-control" type="password" placeholder="Min 8 char, 1 Lowercase,1 Uppercase, 1 Special Charcter" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" id="pass" name="pass"  <?php if($_SESSION[role]==3){ echo ' disabled=true'; }?> >
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="cpass">Confirm Password</label>
+            <input class="form-control" type="password" id="cpass" placeholder="Repeat Password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" name="cpass"  <?php if($_SESSION[role]==3){ echo ' disabled=true'; }?> ><br><span id="cpasserr"></span>
         </fieldset>
         <input type="submit" class="btn btn-primary" value="Update Profile">
-    </form><br><br>
-<?php 
+<?php
+    echo "<input type='hidden' name='user' id='user' value='$user'/>";
+    echo "<input type='hidden' name='updated_by' id='updated_by' value='$_SESSION[user]'/>";
+    echo '</form><br><br>';
+
     }
 }
 else{

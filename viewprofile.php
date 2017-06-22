@@ -51,26 +51,30 @@ if(mysqli_num_rows($result)>0){
         
  ?>
         <img class="profile-img" src="img/mumbra.jpg" alt="User Messenger"/>
-        <div>
-            <span><?php echo $row[fname]." ".$row[lname]?></span>
+        <div class="message">
+            <span><?php echo $row[fname]?$row[fname]:"Anonymous Name"; echo " ";
+            echo $row[lname]?$row[lname]:"Anonymous Surname";?></span>
         </div>
-        <div>
+        <div class="message">
             <span><?php echo $row[headline]?$row[headline]:"No Headline Found"; ?></span>
         </div>
-        <div>
-            <span><label>Gender:</label><?php echo $row[gender]?$row[gender]:" Not Provided";?> <label>Born on:</label><?php echo $row[dob]?date('d/m/Y', strtotime($row[dob])):" Not Known";?></span>
+        <div class="message">
+            <span><label>Gender:</label><?php echo $row[gender]?" ".$row[gender]:" Not Provided";?> </span>
         </div>
-        <div>
+        <div class="message">
+            <span><label>Born on:</label><?php echo $row[dob]?" ".date('d/m/Y', strtotime($row[dob])):" Not Known";?></span>
+        </div>
+        <div class="message">
             <span><label>Mobile Number:</label> <?php echo $row[phoneno]?$row[phoneno]:" Not provided"; ?></span>
         </div>
-        <div>
+        <div class="message">
             <div><label>Profile Description</label></div>
             <div> <?php echo $row[description]?$row[description]:"No description found"; ?></div>
         </div>
-        <div>
+        <div class="message">
             <span><label>Current Position:</label> <?php echo $row[current_pos]?$row[current_pos]:" Not Known"; ?></span>
         </div>
-        <div>
+        <div class="message">
             <span>
                 <label>Education:</label>
                 <?php echo $row[highest_edu]?$row[highest_edu]:" Not Known"." at ";
@@ -79,19 +83,25 @@ if(mysqli_num_rows($result)>0){
             </span>
             
         </div>
-        <div>
+        <div class="message">
             <span>
                 <label>Country:</label>
-                <?php echo $row[city]?$row[city]:"unknown location".", ";
-                echo $row[state]?$row[state]:"unknown state".", ";
+                <?php echo $row[city]?$row[city]:"unknown location";
+                echo ", ";
+                echo $row[state]?$row[state]:"unknown state";
+                echo ", ";
                 echo $row[country]?$row[country]:"unknown country";
                 ?>
             </span>    
         </div>
-        <div>
+        <div class="message">
            <span>
-               <label>Last Updated By:</label><?php echo $row[updated_by]?$row[updated_by]:" Not Applicable".", ";?> 
-               <label>Last Updated on:</label><?php echo $row[last_updated]?date('d/m/Y H:i:m:s a', strtotime($row[last_updated])):" Not Known";?>
+               <label>Last Updated By: </label><?php echo $row[updated_by]?" ".$row[updated_by]:" Not Applicable".", ";?> 
+           </span>
+        </div>
+        <div class="message">
+            <span>
+                <label>Last Updated on: </label><?php echo $row[last_updated]?" ".date('d/m/Y H:i:m:s a', strtotime($row[last_updated])):" Not Known";?>
            </span>
         </div>
         <a href="updateprofile.php"><button class="btn btn-primary">Update Profile</button></a>

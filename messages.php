@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /*
 This Work is Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 You are free to:
@@ -41,12 +41,16 @@ Created on: Jun 21, 2017
             $result=  queryMysql("Select * from Messages where userid='$user' order by time_stamp");    
 ?>
             <h2 class="text-center">Message Board</h2>
+<?php if($_SESSION[user]==$user){ ?>            
             <form method="post" action="messages.php">
                 <textarea class="message-post" rows="5" name="post_message" placeholder="What is in your mind? Share with us..."></textarea>
                 <button type="submit" id="msgSubmit" class="btn btn-primary col-lg-3 col-md-4 col-sm-10">Post</button>    
-            </form>
-          
+            </form>         
 <?php
+}
+else{
+    echo '<h4 class="text-center">'.$user.' \'s Messages </h4>';
+}
 if(mysqli_num_rows($result)>0){
     while($row=mysqli_fetch_array($result)){
            echo '<div class="message col-lg-6 col-md-8 col-sm-10">'.$row[msg].
