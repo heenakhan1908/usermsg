@@ -33,4 +33,9 @@ There are three roles of user
 ```
 - Now type **localhost/usermsg** to run the application in your browser.
 
+### Default Users (Login Details)
+- useradmin (Admin) Password: 12345@Admin 
+- salman (User) password: 12345@Salman 
+- mgr (Manager) password: 12345@Mgr
+
 *****Note: Best viewed in Firefox 54 and Google Chrome 58***** 
