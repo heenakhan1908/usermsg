@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/js/misc.js</file>
-            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/checkpass.php</file>
-            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/index.php</file>
+            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/block.php</file>
+            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/updateprofile.php</file>
+            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/messages.php</file>
             <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/createuser.php</file>
-            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/footer.php</file>
-            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/viewprofile.php</file>
-            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/css/customized.css</file>
+            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/header.php</file>
+            <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/.htaccess</file>
             <file>file:/Users/msshamsi/Documents/workspace/dev/usermsg/functions.php</file>
         </group>
     </open-files>
